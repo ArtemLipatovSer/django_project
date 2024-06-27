@@ -1,0 +1,26 @@
+{% extends 'home.html' %}
+{% block title %}{{ folder.name }}{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto mt-6">
+    <h1 class="text-3xl font-bold mb-4">{{ folder.name }}</h1>
+    <div class="mb-4">
+        <a href="{% url 'photo_upload_in_folder' folder.id %}" class="btn btn-outline-secondary">Upload Photo</a>
+    </div>
+
+    <h2 class="text-2xl font-semibold mb-4">Photos in {{ folder.name }}</h2>
+    <div class="grid grid-cols-3 gap-4 mb-6">
+        {% for photo in photos %}
+            <div class="border p-4 rounded shadow">
+                <a data-fancybox="gallery" href="{{ photo.image.url }}">
+                    <img src="{{ photo.image.url }}" class="w-full h-32 object-cover rounded mb-2" alt="{{ photo.title }}">
+                </a>
+                <p>{{ photo.title }}</p>
+                <form method="POST" action="{% url 'photo_delete' photo.id %}" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="text-sm text-red-500">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "home.html" %}
+{% block content %}
+<div class="center">
+    <form action="" method="post" class="card">
+        {% csrf_token %}
+        <h2 class="text-center">Войти в аккаунт</h2>
+        {% for  field in form%}
+            {{ field.label_tag }}
+            {{field}}
+            {% if field.errors %}
+                <small>{{field.errors|striptags}}</small>
+            {% endif%}       
+        {% endfor %}
+
+        <input type="submit" value="Войти" class="btn btn-outline-secondary mt-3">
+        <hr>
+        <p class="text-center">Забыли пароль? <a href="{% url 'password_reset' %}">Восстановить</a></p>
+    </form>
+</div>
+{% endblock content %}

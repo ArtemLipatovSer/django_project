@@ -1,0 +1,15 @@
+{% extends 'home.html' %}
+{% block title %}{% if edit_mode %}Изменение альбома{% else %}Создание альбома{% endif %}{% endblock %}
+{% block content %}
+<div class="center">
+    
+    <form method="POST" class="card">
+        <h2 class="text-center">{% if edit_mode %}Изменение альбома{% else %}Создание альбома{% endif %}</h2>
+        {% csrf_token %}
+        {{ form.name.label_tag }}
+        {{ form.name }}
+        <button type="submit" class="btn btn-outline-secondary mt-3">{% if edit_mode %}Изменить{% else %}Создать{% endif %}</button>
+    </form>
+</div>
+{% endblock %}
+<h2 class="text-center">Войти в аккаунт</h2>

@@ -1,0 +1,46 @@
+{% extends "home.html" %}
+{% if request.user.is_authenticated %}
+{% block content %}
+<div class="content_block d-flex justify-content-between align-items-center">
+    <div class="album_view">
+        Обзор альбомов
+    </div>
+    <div>
+        <a href="{% url 'folder_create' %}" class="btn btn-outline-secondary"
+            style="font-family: Playwrite SK, cursive;">+ Cоздать альбом</a>
+    </div>
+</div>
+<div class="container"></div>
+    <div class="row">
+        {% for folder in folders %}
+        <div class="col">
+            <a href="{% url 'folder_detail' folder.id %}" class="text-xl font-bold mb-2 block">{{ folder.name }}</a>
+            <img src="{{ photo.image.url }}" alt="Нет фото">
+            <div class="absolute top-2 right-2">
+                <div class="d-flex align-items-center">
+                    <div class="dropdown">
+                        <button class="d-flex align-items-center justify-content-around" type="button" id="click_folder"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Кнопка
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><a class="dropdown-item" href="{% url 'photo_upload_in_folder' folder.id %}">Загрузить
+                                    фото</a></li>
+                            <li><a class="dropdown-item" href="{% url 'folder_rename' folder.id %}">Профиль</a></li>
+                            <li>
+                                <form method="POST" action="{% url 'folder_delete' folder.id %}" class="w-full">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                        class="w-full text-left text-gray-700 block px-4 py-2 text-sm">Удалить</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+{% endif %}
