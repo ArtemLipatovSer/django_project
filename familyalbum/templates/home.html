@@ -5,13 +5,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>{% block title %}FamilyAlbum{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/style.css'%}">
   <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+SK:wght@100..400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
 </head>
 
 <body>
@@ -35,11 +36,10 @@
             {{ request.user|title|slice:":1" }}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <li><a class="dropdown-item" href="{% url 'profile' %}">Профиль</a></li>
             <li>
               <form action="{% url 'logout' %}" class="logout" method="post">
                 {% csrf_token %}
-                <input type="submit" class="dropdown-item" value="Logout">
+                <input type="submit" class="dropdown-item" value="Выйти">
               </form>
             </li>
           </ul>
@@ -50,7 +50,13 @@
     </div>
   </header>
   <div class="part-line"></div>
-
+  {% if messages %}
+      {% for message in messages %}
+      <div class="messages d-flex align-items-center justify-content-center mb-3 mt-3">
+        <div {% if message.tags %} class="{{ message.tags }} msg  p-2"{% endif %}>{{ message }}</div>
+      </div>
+      {% endfor %}
+  {% endif %}
   {% block content %}
   <div class="part-center">
     <h1>
@@ -58,7 +64,6 @@
     </h1>
   </div>
   {% endblock content %}
-
   <footer>
     <span>Дипломный проект Артема Липатова</span>
     <span>Разработан и построен с любовью в мире</span>
@@ -67,6 +72,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous">
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 </body>
 </html>

@@ -126,6 +126,18 @@ form>input:focus {
   outline: none;
 }
 
+.photo-input {
+  border: 0.1px solid #c4aed6;
+  border-radius: 5px;
+  font-style: italic;
+  color: #634d75;
+}
+
+.photo-input:focus {
+  border: solid #c4aed6;
+  outline: none;
+}
+
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -224,4 +236,117 @@ fieldset:disabled .btn {
   font-weight: 700;
   font-family: "Playwrite SK", cursive;
   font-style: italic;
+}
+
+.album {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  border: 1px solid #c4aed6;
+  border-radius: 20px;
+  background-color: #c4aed6;  
+  width: 150px;
+  height: 300px;
+}
+
+.name_col {
+  color: #634d75;
+  background-color: #c4aed6;
+  border-radius: 20px;
+  margin-top: 2px;
+  width: 100%;
+  text-align: center;
+  font-family: "Playwrite SK", cursive;
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.album_link {
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+.btn-album {
+  color: #634d75;
+  border-color: #c4aed6;
+  background-color: #c4aed6;
+  width: 100%;
+  font-family: "Playwrite SK", cursive;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.btn-album:hover {
+  color: #fff;
+  background-color: #c4aed6;
+  border-color: #c4aed6;
+}
+
+.name_album {
+  font-family: "Playwrite SK", cursive;
+  font-style: italic;
+  font-size: 2rem;
+  color: #634d75;
+}
+
+@media (max-width: 1330px) {
+  .btn_1 {
+      padding: .5rem 1rem;
+      font-size: 0.7rem;
+  }
+}
+@media (max-width: 1280px) {
+  .btn_1 {
+      padding: .3rem 1rem;
+      font-size: 0.6rem;
+  }
+}
+@media (max-width: 1100px) {
+  .btn_1 {
+      padding: .2rem .5rem;
+      font-size: 0.5rem;
+  }
+}
+@media (max-width: 960px) {
+  .btn_1 {
+      padding: .1rem .3rem;
+      font-size: 0.4rem;
+  }
+}
+@media (max-width: 780px) {
+  .btn_1 {
+      padding: .1rem .2rem;
+      font-size: 0.3rem;
+  }
+}
+@media (max-width: 640px) {
+  .btn_1 {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+  }
+}
+
+
+.messages{
+  width: 100%;
+  height: 50px;
+  text-align: center;
+}
+
+.msg {
+  border: 1px solid #c4aed6;
+  border-radius: 30px;
+  color: #634d75;
+}
+
+.error {
+  background: red;
+}
+
+.success {
+  background: greenyellow;
 }

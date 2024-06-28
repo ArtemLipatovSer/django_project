@@ -10,32 +10,32 @@
             style="font-family: Playwrite SK, cursive;">+ Cоздать альбом</a>
     </div>
 </div>
-<div class="container"></div>
-    <div class="row">
+<div class="container-fluid p-3">
+    <div class="row justify-content-center">
         {% for folder in folders %}
-        <div class="col">
-            <a href="{% url 'folder_detail' folder.id %}" class="text-xl font-bold mb-2 block">{{ folder.name }}</a>
-            <img src="{{ photo.image.url }}" alt="Нет фото">
-            <div class="absolute top-2 right-2">
-                <div class="d-flex align-items-center">
-                    <div class="dropdown">
-                        <button class="d-flex align-items-center justify-content-around" type="button" id="click_folder"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Кнопка
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <li><a class="dropdown-item" href="{% url 'photo_upload_in_folder' folder.id %}">Загрузить
-                                    фото</a></li>
-                            <li><a class="dropdown-item" href="{% url 'folder_rename' folder.id %}">Профиль</a></li>
-                            <li>
-                                <form method="POST" action="{% url 'folder_delete' folder.id %}" class="w-full">
-                                    {% csrf_token %}
-                                    <button type="submit"
-                                        class="w-full text-left text-gray-700 block px-4 py-2 text-sm">Удалить</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+        <div class="col-md-2 album m-3" style="background-image: url('{{ folder.cover_photo }}'); background-size: cover; background-position: center;">
+            <div class="name_col">
+                {{ folder.name }}
+            </div>
+            <a href="{% url 'folder_detail' folder.id %}" class="album_link"></a>
+            <div class="d-flex align-items-center">
+                <div class="dropdown">
+                    <button class="btn btn-album" type="button" id="click_folder" data-bs-toggle="dropdown" aria-expanded="false" style="width: 100px">
+                        Действие
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a class="dropdown-item" href="{% url 'photo_upload_in_folder' folder.id %}">Загрузить фото</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'folder_rename' folder.id %}">Изменить альбом</a>
+                        </li>
+                        <li>
+                            <form method="POST" action="{% url 'folder_delete' folder.id %}" class="logout" >
+                                {% csrf_token %}
+                                <input type="submit" class="dropdown-item" value="Удалить альбом">
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

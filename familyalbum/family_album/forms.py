@@ -15,16 +15,15 @@ class FolderForm(forms.ModelForm):
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
-        fields = ['title', 'image', 'folder']
+        fields = ['title', 'image']
+        labels = {
+            'title': 'Название',
+            'image': 'Фотография',
+        }
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'w-full p-2 border border-gray-300 rounded',
-                'placeholder': 'Photo Title'
+                'class': 'photo-input',
+                'placeholder': 'Название фотографии'
             }),
-            'image': forms.FileInput(attrs={
-                'class': 'w-full p-2 border border-gray-300 rounded'
-            }),
-            'folder': forms.Select(attrs={
-                'class': 'w-full p-2 border border-gray-300 rounded'
-            }),
+            'image': forms.FileInput(),
     }

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -8,6 +10,12 @@ class Folder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def cover_photo(self):
+        first_photo = self.photos.first()
+        if first_photo:
+            return first_photo.image.url
+        return '/media/photos/default_cover.jpg' 
+    
     def __str__(self):
         return self.name
 
@@ -20,3 +28,7 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.title or f"Photo {self.id}"
+
+@receiver(post_delete, sender=Photo)
+def delete_photo(sender, instance, **kwargs):
+    instance.image.delete(save=False)

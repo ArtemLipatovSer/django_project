@@ -1,9 +1,9 @@
 {% extends 'home.html' %}
-{% block title %}Upload Photo{% endblock %}
+{% block title %}Загрузка фото{% endblock %}
 {% block content %}
-<div class="max-w-md mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg mt-6">
-    <h1 class="text-2xl font-bold mb-6 text-center">Upload Photo{% if folder_id %} to {{ folder.name }}{% endif %}</h1>
-    <form method="POST" enctype="multipart/form-data">
+<div class="center">
+    <h1 class="name_album">Загрузка фотографии</h1>
+    <form method="POST" enctype="multipart/form-data" class="card">
         {% csrf_token %}
         <div class="mb-4">
             {{ form.image.label_tag }}
@@ -13,7 +13,7 @@
             {{ form.title.label_tag }}
             {{ form.title }}
         </div>
-        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Upload</button>
+        <button type="submit" class="btn btn-outline-secondary">Загрузить</button>
     </form>
 </div>
 {% endblock %}

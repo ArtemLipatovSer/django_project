@@ -3,7 +3,6 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth import password_validation
-from .models import Profile
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(label='Имя пользователя')
@@ -62,7 +61,3 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ["email", 'username']
 
-class ProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ["avatar"]

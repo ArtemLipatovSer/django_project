@@ -3,6 +3,8 @@ from .models import Folder, Photo
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from .forms import FolderForm, PhotoForm
+from django.contrib import messages
+
 
 # Create your views here.
 def home(request):
@@ -11,8 +13,7 @@ def home(request):
 class PhotoAlbumView(LoginRequiredMixin, View):
     def get(self, request):
         root_folders = Folder.objects.filter(user=request.user)
-        photo = Photo.objects.filter(user=request.user, folder__isnull=True).first()
-        return render(request, 'family_album/home_user.html', {'folders': root_folders, 'photo': photo})
+        return render(request, 'family_album/home_user.html', {'folders': root_folders})
     
 class FolderCreateView(LoginRequiredMixin, View):
     def get(self, request):
@@ -35,6 +36,7 @@ class FolderDetailView(LoginRequiredMixin, View):
         return render(request, 'family_album/folder_detail.html', {'folder': folder, 'photos': photos})
     
 class PhotoUploadView(LoginRequiredMixin, View):
+    MAX_PHOTOS_PER_FOLDER = 3
     def get(self, request, folder_id=None):
         form = PhotoForm()
         return render(request, 'family_album/photo_upload.html', {'form': form, 'folder_id': folder_id})
@@ -46,6 +48,11 @@ class PhotoUploadView(LoginRequiredMixin, View):
             photo.user = request.user
             if folder_id:
                 photo.folder = get_object_or_404(Folder, id=folder_id, user=request.user)
+                folder = get_object_or_404(Folder, id=folder_id, user=request.user)
+                if folder.photos.count() >= self.MAX_PHOTOS_PER_FOLDER:
+                    messages.error(request, 'Вы не можете загрузить более {} фотографий в эту папку.'.format(self.MAX_PHOTOS_PER_FOLDER))
+                    return render(request, 'family_album/photo_upload.html', {'form': form, 'folder_id': folder_id})
+            photo = form.save(commit=False)
             photo.save()
             return redirect('folder_detail', folder_id=folder_id) if folder_id else redirect('photo_album')
         return render(request, 'family_album/photo_upload.html', {'form': form})
