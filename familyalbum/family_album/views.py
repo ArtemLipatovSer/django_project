@@ -83,3 +83,6 @@ class PhotoDeleteView(LoginRequiredMixin, View):
         folder_id = photo.folder.id if photo.folder else None
         photo.delete()
         return redirect('folder_detail', folder_id=folder_id) if folder_id else redirect('photo_album')
+    
+def page_not_found_view(request, exception):
+    return render(request, '404.html', {}, status=404)

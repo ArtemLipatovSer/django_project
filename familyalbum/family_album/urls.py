@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import home, FolderCreateView, FolderDetailView, PhotoUploadView, PhotoAlbumView, FolderRenameView, FolderDeleteView, PhotoDeleteView
-
+from .views import home, FolderCreateView, FolderDetailView, PhotoUploadView, PhotoAlbumView, FolderRenameView, FolderDeleteView, PhotoDeleteView, page_not_found_view
+from django.conf.urls import handler404
 
 urlpatterns = [
     path('', home, name='home'),
@@ -12,3 +12,5 @@ urlpatterns = [
     path('folder/delete/<int:pk>/', FolderDeleteView.as_view(), name='folder_delete'),
     path('delete/photo/<int:pk>/', PhotoDeleteView.as_view(), name='photo_delete'),
 ]
+
+handler404 = page_not_found_view
